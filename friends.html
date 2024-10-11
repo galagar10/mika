@@ -1,0 +1,283 @@
+<html><head><base href="/home/friends">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SocialSphere - Friends</title>
+<style>
+  :root {
+    --primary-color: #1877f2;
+    --bg-color: #f0f2f5;
+    --text-color: #050505;
+    --secondary-text: #65676b;
+    --border-color: #dddfe2;
+  }
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  .nav-links a {
+    color: var(--secondary-text);
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background-color: var(--bg-color);
+  }
+  .content {
+    display: flex;
+    margin-top: 20px;
+  }
+  .sidebar {
+    flex: 1;
+    margin-right: 20px;
+  }
+  .main-content {
+    flex: 3;
+  }
+  .widget {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .widget-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .friend-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .friend-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .friend-card:hover {
+    transform: translateY(-5px);
+  }
+  .friend-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  .friend-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .friend-info {
+    color: var(--secondary-text);
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .friend-action {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .friend-action:hover {
+    background-color: #166fe5;
+  }
+  .search-bar {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  .search-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 16px;
+  }
+  .search-button {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .search-button:hover {
+    background-color: #166fe5;
+  }
+  .filter-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .filter-option {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .filter-option:hover, .filter-option.active {
+    background-color: var(--primary-color);
+    color: #ffffff;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">SocialSphere</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/friends" class="active">Friends</a>
+        <a href="/groups">Groups</a>
+        <a href="/marketplace">Marketplace</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="content">
+      <div class="sidebar">
+        <div class="widget">
+          <div class="widget-title">Friend Requests</div>
+          <!-- Add friend requests content here -->
+        </div>
+        <div class="widget">
+          <div class="widget-title">People You May Know</div>
+          <!-- Add suggested friends content here -->
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search friends...">
+          <button class="search-button">Search</button>
+        </div>
+        <div class="filter-options">
+          <button class="filter-option active">All Friends</button>
+          <button class="filter-option">Recently Added</button>
+          <button class="filter-option">Work</button>
+          <button class="filter-option">College</button>
+        </div>
+        <div class="friend-list">
+          <div class="friend-card">
+            <img src="https://socialsphere.com/avatars/friend1.jpg" alt="Emily Johnson's avatar" class="friend-avatar">
+            <div class="friend-name">Emily Johnson</div>
+            <div class="friend-info">25 mutual friends</div>
+            <button class="friend-action">Message</button>
+          </div>
+          <div class="friend-card">
+            <img src="https://socialsphere.com/avatars/friend2.jpg" alt="Michael Chen's avatar" class="friend-avatar">
+            <div class="friend-name">Michael Chen</div>
+            <div class="friend-info">12 mutual friends</div>
+            <button class="friend-action">Message</button>
+          </div>
+          <div class="friend-card">
+            <img src="https://socialsphere.com/avatars/friend3.jpg" alt="Sophia Patel's avatar" class="friend-avatar">
+            <div class="friend-name">Sophia Patel</div>
+            <div class="friend-info">38 mutual friends</div>
+            <button class="friend-action">Message</button>
+          </div>
+          <div class="friend-card">
+            <img src="https://socialsphere.com/avatars/friend4.jpg" alt="David Kim's avatar" class="friend-avatar">
+            <div class="friend-name">David Kim</div>
+            <div class="friend-info">5 mutual friends</div>
+            <button class="friend-action">Message</button>
+          </div>
+          <div class="friend-card">
+            <img src="https://socialsphere.com/avatars/friend5.jpg" alt="Olivia Martinez's avatar" class="friend-avatar">
+            <div class="friend-name">Olivia Martinez</div>
+            <div class="friend-info">20 mutual friends</div>
+            <button class="friend-action">Message</button>
+          </div>
+          <div class="friend-card">
+            <img src="https://socialsphere.com/avatars/friend6.jpg" alt="Liam Thompson's avatar" class="friend-avatar">
+            <div class="friend-name">Liam Thompson</div>
+            <div class="friend-info">15 mutual friends</div>
+            <button class="friend-action">Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.querySelector('.search-input');
+      const searchButton = document.querySelector('.search-button');
+      const filterOptions = document.querySelectorAll('.filter-option');
+      const friendCards = document.querySelectorAll('.friend-card');
+
+      // Search functionality
+      searchButton.addEventListener('click', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        friendCards.forEach(card => {
+          const name = card.querySelector('.friend-name').textContent.toLowerCase();
+          if (name.includes(searchTerm)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+
+      // Filter functionality
+      filterOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          filterOptions.forEach(opt => opt.classList.remove('active'));
+          this.classList.add('active');
+          // Here you would typically filter the friend list based on the selected option
+          // For this example, we'll just log the selected filter
+          console.log('Selected filter:', this.textContent);
+        });
+      });
+
+      // Message button functionality
+      friendCards.forEach(card => {
+        const messageButton = card.querySelector('.friend-action');
+        messageButton.addEventListener('click', function() {
+          const friendName = card.querySelector('.friend-name').textContent;
+          alert(`Opening chat with ${friendName}`);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

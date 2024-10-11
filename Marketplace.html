@@ -1,0 +1,397 @@
+<html><head><base href="/home/friends/friends/groups">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SocialSphere - Friend Groups</title>
+<style>
+  :root {
+    --primary-color: #1877f2;
+    --bg-color: #f0f2f5;
+    --text-color: #050505;
+    --secondary-text: #65676b;
+    --border-color: #dddfe2;
+    --group-color-1: #e7f3ff;
+    --group-color-2: #fef2d1;
+    --group-color-3: #d1f5d3;
+    --group-color-4: #ffcccb;
+  }
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  .nav-links a {
+    color: var(--secondary-text);
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background-color: var(--bg-color);
+  }
+  .content {
+    display: flex;
+    margin-top: 20px;
+  }
+  .sidebar {
+    flex: 1;
+    margin-right: 20px;
+  }
+  .main-content {
+    flex: 3;
+  }
+  .widget {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .widget-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .group-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .group-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .group-card:hover {
+    transform: translateY(-5px);
+  }
+  .group-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .group-info {
+    color: var(--secondary-text);
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  .group-members {
+    display: flex;
+    margin-bottom: 15px;
+  }
+  .member-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: -10px;
+    border: 2px solid #ffffff;
+  }
+  .group-action {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .group-action:hover {
+    background-color: #166fe5;
+  }
+  .create-group {
+    background-color: #ffffff;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .create-group:hover {
+    background-color: var(--bg-color);
+  }
+  .create-group-icon {
+    font-size: 48px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+  }
+  #createGroupModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+  }
+  .modal-content {
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    max-width: 500px;
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .close:hover {
+    color: #000;
+  }
+  .modal-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-group input, .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+  }
+  .form-group textarea {
+    height: 100px;
+  }
+  .submit-btn {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .submit-btn:hover {
+    background-color: #166fe5;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">SocialSphere</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/friends">Friends</a>
+        <a href="/friends/groups" class="active">Friend Groups</a>
+        <a href="/marketplace">Marketplace</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="content">
+      <div class="sidebar">
+        <div class="widget">
+          <div class="widget-title">Group Categories</div>
+          <ul>
+            <li>Family</li>
+            <li>Work</li>
+            <li>School</li>
+            <li>Hobbies</li>
+            <li>Travel</li>
+          </ul>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Group Invites</div>
+          <ul>
+            <li>Photography Enthusiasts</li>
+            <li>Book Club</li>
+            <li>Fitness Buddies</li>
+          </ul>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="group-list">
+          <div class="create-group" id="createGroupBtn">
+            <div class="create-group-icon">+</div>
+            <div>Create New Group</div>
+          </div>
+          <div class="group-card" style="background-color: var(--group-color-1);">
+            <div class="group-name">Family</div>
+            <div class="group-info">15 members</div>
+            <div class="group-members">
+              <img src="https://socialsphere.com/avatars/mom.jpg" alt="Mom's avatar" class="member-avatar">
+              <img src="https://socialsphere.com/avatars/dad.jpg" alt="Dad's avatar" class="member-avatar">
+              <img src="https://socialsphere.com/avatars/sister.jpg" alt="Sister's avatar" class="member-avatar">
+              <img src="https://socialsphere.com/avatars/brother.jpg" alt="Brother's avatar" class="member-avatar">
+            </div>
+            <button class="group-action">View Group</button>
+          </div>
+          <div class="group-card" style="background-color: var(--group-color-2);">
+            <div class="group-name">College Friends</div>
+            <div class="group-info">8 members</div>
+            <div class="group-members">
+              <img src="https://socialsphere.com/avatars/alex.jpg" alt="Alex's avatar" class="member-avatar">
+              <img src="https://socialsphere.com/avatars/sam.jpg" alt="Sam's avatar" class="member-avatar">
+              <img src="https://socialsphere.com/avatars/taylor.jpg" alt="Taylor's avatar" class="member-avatar">
+            </div>
+            <button class="group-action">View Group</button>
+          </div>
+          <div class="group-card" style="background-color: var(--group-color-3);">
+            <div class="group-name">Hiking Club</div>
+            <div class="group-info">23 members</div>
+            <div class="group-members">
+              <img src="https://socialsphere.com/avatars/emma.jpg" alt="Emma's avatar" class="member-avatar">
+              <img src="https://socialsphere.com/avatars/jack.jpg" alt="Jack's avatar" class="member-avatar">
+              <img src="https://socialsphere.com/avatars/olivia.jpg" alt="Olivia's avatar" class="member-avatar">
+            </div>
+            <button class="group-action">View Group</button>
+          </div>
+          <div class="group-card" style="background-color: var(--group-color-4);">
+            <div class="group-name">Book Club</div>
+            <div class="group-info">12 members</div>
+            <div class="group-members">
+              <img src="https://socialsphere.com/avatars/sophie.jpg" alt="Sophie's avatar" class="member-avatar">
+              <img src="https://socialsphere.com/avatars/liam.jpg" alt="Liam's avatar" class="member-avatar">
+              <img src="https://socialsphere.com/avatars/ava.jpg" alt="Ava's avatar" class="member-avatar">
+            </div>
+            <button class="group-action">View Group</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="createGroupModal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 class="modal-title">Create New Group</h2>
+      <form id="createGroupForm">
+        <div class="form-group">
+          <label for="groupName">Group Name:</label>
+          <input type="text" id="groupName" name="groupName" required>
+        </div>
+        <div class="form-group">
+          <label for="groupDescription">Description:</label>
+          <textarea id="groupDescription" name="groupDescription" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="groupPrivacy">Privacy:</label>
+          <select id="groupPrivacy" name="groupPrivacy">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+        <button type="submit" class="submit-btn">Create Group</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('createGroupModal');
+      const btn = document.getElementById('createGroupBtn');
+      const span = document.getElementsByClassName('close')[0];
+      const form = document.getElementById('createGroupForm');
+
+      btn.onclick = function() {
+        modal.style.display = 'block';
+      }
+
+      span.onclick = function() {
+        modal.style.display = 'none';
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      }
+
+      form.onsubmit = function(e) {
+        e.preventDefault();
+        const groupName = document.getElementById('groupName').value;
+        const groupDescription = document.getElementById('groupDescription').value;
+        const groupPrivacy = document.getElementById('groupPrivacy').value;
+
+        // Here you would typically send this data to your backend
+        console.log('Creating group:', { groupName, groupDescription, groupPrivacy });
+
+        // For demonstration, let's add the new group to the list
+        const groupList = document.querySelector('.group-list');
+        const newGroup = document.createElement('div');
+        newGroup.className = 'group-card';
+        newGroup.style.backgroundColor = getRandomColor();
+        newGroup.innerHTML = `
+          <div class="group-name">${groupName}</div>
+          <div class="group-info">1 member</div>
+          <div class="group-members">
+            <img src="https://socialsphere.com/avatars/default.jpg" alt="Your avatar" class="member-avatar">
+          </div>
+          <button class="group-action">View Group</button>
+        `;
+        groupList.insertBefore(newGroup, groupList.children[1]);
+
+        modal.style.display = 'none';
+        form.reset();
+      }
+
+      function getRandomColor() {
+        const colors = ['var(--group-color-1)', 'var(--group-color-2)', 'var(--group-color-3)', 'var(--group-color-4)'];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      // Add click event listeners to group action buttons
+      document.querySelectorAll('.group-action').forEach(button => {
+        button.addEventListener('click', function() {
+          const groupName = this.closest('.group-card').querySelector('.group-name').textContent;
+          alert(`Viewing ${groupName} group page`);
+          // Here you would typically navigate to the group's page
+        });
+      });
+
+      // Add click event listeners to group invites
+      document.querySelectorAll('.widget:last-child li').forEach(invite => {
+        invite.style.cursor = 'pointer';
+        invite.addEventListener('click', function() {
+          const groupName = this.textContent;
+          if (confirm(`Accept invitation to join "${groupName}"?`)) {
+            alert(`You have joined "${groupName}"!`);
+            this.remove();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SocialSphere - Friends & Messages</title>
+<style>
+  :root {
+    --primary-color: #1877f2;
+    --bg-color: #f0f2f5;
+    --text-color: #050505;
+    --secondary-text: #65676b;
+    --border-color: #dddfe2;
+    --message-sent: #0084ff;
+    --message-received: #e4e6eb;
+  }
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  .nav-links a {
+    color: var(--secondary-text);
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background-color: var(--bg-color);
+  }
+  .content {
+    display: flex;
+    margin-top: 20px;
+  }
+  .sidebar {
+    flex: 1;
+    margin-right: 20px;
+  }
+  .main-content {
+    flex: 2;
+    display: flex;
+  }
+  .chat-container {
+    flex: 2;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 100px);
+  }
+  .widget {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .widget-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .friend-list, .message-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .friend-item, .message-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .friend-item:hover, .message-item:hover {
+    background-color: var(--bg-color);
+  }
+  .friend-avatar, .message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .friend-name, .message-name {
+    font-weight: bold;
+  }
+  .message-preview {
+    color: var(--secondary-text);
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+  }
+  .chat-header {
+    padding: 15px;
+    background-color: #f0f2f5;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-weight: bold;
+  }
+  .chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+  }
+  .message {
+    max-width: 70%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 18px;
+  }
+  .message-sent {
+    background-color: var(--message-sent);
+    color: white;
+    align-self: flex-end;
+    margin-left: auto;
+  }
+  .message-received {
+    background-color: var(--message-received);
+    align-self: flex-start;
+  }
+  .chat-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid var(--border-color);
+  }
+  .chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 16px;
+  }
+  .chat-input button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .chat-input button:hover {
+    background-color: #166fe5;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">SocialSphere</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/friends" class="active">Friends</a>
+        <a href="/friends/groups">Friend Groups</a>
+        <a href="/marketplace">Marketplace</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="content">
+      <div class="sidebar">
+        <div class="widget">
+          <div class="widget-title">Friends</div>
+          <div class="friend-list">
+            <div class="friend-item" data-friend="John Doe">
+              <img src="1.jpg" alt="John Doe's avatar" class="friend-avatar">
+              <span class="friend-name">John Doe</span>
+            </div>
+            <div class="friend-item" data-friend="Jane Smith">
+              <img src="2.jfif"Jane Smith's avatar" class="friend-avatar">
+              <span class="friend-name">Jane Smith</span>
+            </div>
+            <div class="friend-item" data-friend="Alice Johnson">
+              <img src="3.jfif" alt="Alice Johnson's avatar" class="friend-avatar">
+              <span class="friend-name">Alice Johnson</span>
+            </div>
+            <div class="friend-item" data-friend="Bob Williams">
+              <img src="4.jfif" alt="Bob Williams' avatar" class="friend-avatar">
+              <span class="friend-name">Bob Williams</span>
+            </div>
+          </div>
+        </div>
+        <div class="widget">
+          <div class="widget-title">Messages</div>
+          <div class="message-list">
+            <div class="message-item" data-friend="John Doe">
+              <img src="5.jfif" alt="John Doe's avatar" class="message-avatar">
+              <div>
+                <span class="message-name">John Doe</span>
+                <div class="message-preview">Hey, how's it going?</div>
+              </div>
+            </div>
+            <div class="message-item" data-friend="Jane Smith">
+              <img src="1.jpg" alt="Jane Smith's avatar" class="message-avatar">
+              <div>
+                <span class="message-name">Jane Smith</span>
+                <div class="message-preview">Did you see the latest post?</div>
+              </div>
+            </div>
+            <div class="message-item" data-friend="Alice Johnson">
+              <img src="3.jfif" alt="Alice Johnson's avatar" class="message-avatar">
+              <div>
+                <span class="message-name">Alice Johnson</span>
+                <div class="message-preview">Let's meet up this weekend!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="chat-container">
+          <div class="chat-header">Select a friend to start chatting</div>
+          <div class="chat-messages"></div>
+          <div class="chat-input">
+            <input type="text" placeholder="Type a message..." id="message-input">
+            <button id="send-button">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatHeader = document.querySelector('.chat-header');
+      const chatMessages = document.querySelector('.chat-messages');
+      const messageInput = document.getElementById('message-input');
+      const sendButton = document.getElementById('send-button');
+      const friendItems = document.querySelectorAll('.friend-item');
+      const messageItems = document.querySelectorAll('.message-item');
+      let currentFriend = null;
+
+      function addMessage(content, isSent) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message');
+        messageElement.classList.add(isSent ? 'message-sent' : 'message-received');
+        messageElement.textContent = content;
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function setActiveFriend(friendName) {
+        currentFriend = friendName;
+        chatHeader.textContent = `Chat with ${friendName}`;
+        chatMessages.innerHTML = '';
+        messageInput.disabled = false;
+        sendButton.disabled = false;
+
+        // Add some sample messages for the selected friend
+        if (friendName === "John Doe") {
+          addMessage("Hey, how's it going?", false);
+          addMessage("Not bad, thanks! How about you?", true);
+        } else if (friendName === "Jane Smith") {
+          addMessage("Did you see the latest post?", false);
+          addMessage("No, I haven't checked yet. What's it about?", true);
+        } else if (friendName === "Alice Johnson") {
+          addMessage("Let's meet up this weekend!", false);
+          addMessage("Sounds great! Where do you want to go?", true);
+        }
+      }
+
+      friendItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const friendName = this.dataset.friend;
+          setActiveFriend(friendName);
+        });
+      });
+
+      messageItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const friendName = this.dataset.friend;
+          setActiveFriend(friendName);
+        });
+      });
+
+      function sendMessage() {
+        const message = messageInput.value.trim();
+        if (message && currentFriend) {
+          addMessage(message, true);
+          messageInput.value = '';
+          
+          // Simulate received message
+          setTimeout(() => {
+            const responses = [
+              "That's interesting!",
+              "Tell me more about that.",
+              "I see what you mean.",
+              "How's your day going?",
+              "That reminds me of something...",
+              "Wow, I didn't know that!"
+            ];
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addMessage(randomResponse, false);
+          }, 1000 + Math.random() * 2000);
+        }
+      }
+
+      sendButton.addEventListener('click', sendMessage);
+      messageInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          sendMessage();
+        }
+      });
+
+      // Initially disable input and button
+      messageInput.disabled = true;
+      sendButton.disabled = true;
+    });
+  </script>
+</body>
+</html>
